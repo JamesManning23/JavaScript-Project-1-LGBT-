@@ -3,7 +3,7 @@ const welcomePara = document.getElementById("paraOne");
 const button = document.getElementById("button");
 const creditPara = document.getElementById("paraTwo");
 const containerTwo = document.getElementById("containerTwo");
-
+const optionInput = document.getElementById
   // creates a array for each individual symptom.
 const symptomsArray = [
     "Fever",
@@ -38,34 +38,22 @@ const symptomsArray = [
     "Flu-like symptoms"
 ]
 
-
 // create a checklist function outside the sympton function as arrow functions cannot be hoisted.
 // However, the function will be called in the symptom function when clicked./
 const checkList = () => {
-  
-    
+     
 // loops through each array index to create a checkbox for each option.
     for (let i = 0; i < symptomsArray.length; i++) {
         const optionLabel = document.createElement("label");
         optionLabel.innerText = symptomsArray[i];
-        optionLabel.style.fontSize = "1.75rem";
         optionLabel.setAttribute("for", "option" + i);
-        optionLabel.style.position = "relative";
-        optionLabel.style.bottom = "100px";
-        optionLabel.style.fontFamily = "Times New Roman";
-        optionLabel.style.textAlign = "left "; 
-        
-        
-        
-        const optionInput = document.createElement("input");
+        optionLabel.setAttribute("id", "optionLabel");
+       
+        let optionInput = document.createElement("input");
         optionInput.setAttribute("type", "checkbox");
         optionInput.setAttribute("id", "option" + i);
-        optionInput.style.width = "40px";
-        optionInput.style.position = "relative";
-        optionInput.style.bottom = "100px"; 
-        optionInput.style.transform = "scale(2.5)";
-
-
+        optionInput.setAttribute("class", "optionInput");
+        
         // creating a div container element.
         const divContainer = document.createElement("div");
         // appending the div container to containerTwo
@@ -73,12 +61,7 @@ const checkList = () => {
         // appending the Option input and label to the div
         divContainer.append(optionInput); 
         divContainer.append(optionLabel);
-        // setting a display of flex to the div container;
-        divContainer.style.display = "flex"; 
-        divContainer.style.flexDirection = "column";
-        divContainer.style.flexWrap = "wrap";
-        divContainer.style.justifyContent = "space-evenly";
-
+        divContainer.setAttribute("id", "divContainer");
        }
 
 
@@ -94,48 +77,60 @@ const displaySymptomFunction = () => {
     const headingTwo = document.createElement("h2");
     headingTwo.innerText = "Please Select Any Symptoms You Have Below";
     containerTwo.appendChild(headingTwo); // Append the heading to containerTwo
-    headingTwo.style.gridColumn = "1/13";
-    headingTwo.style.textAlign = "center";
-    headingTwo.style.fontSize = "3rem";
-    headingTwo.style.marginTop = "25px";
+    headingTwo.setAttribute("id", "headingTwo");
+   
 
     // creates another heading. 
     const headingThree = document.createElement("h3");
     headingThree.innerText = "This is a symptom checker for the 8 most prevelant STIs contracted by Gay and Bisexual Men";
     containerTwo.appendChild(headingThree); // Append the heading to containerTwo
-    headingThree.style.textAlign = "center";
-    headingThree.style.gridColumn = "1/13";
-    headingThree.style.fontSize = "2.5rem";
-   
-
+    headingThree.setAttribute("id", "headingThree");
+    
 // creating a submit button and appending this to the container.
 const submitButton = document.createElement("button");
 submitButton.setAttribute("type", "submit");
 submitButton.innerText = "Submit";
 containerTwo.append(submitButton);
-// styling the submit button.
-submitButton.style.position = "relative";
-submitButton.style.top = "35vh";
-submitButton.style.transform = "scale(3.5)";
+submitButton.setAttribute("id", "submitButton");
+// creating a function to iterate through each checkbox and store the value in the userData Variable
 
 
-submitButton.addEventListener("click", () => {
-const userStoredData = symptomsArray(i);
-console.log(userStoredData);
-})
+const collectUserData = () => {
+//    clears the user data so that it generates only one value each time the 
+    userData = [];
 
-
-
-    // Call the checkList function to create the checkboxes
-    checkList();
+    for (let i = 0; i < symptomsArray.length; i++) {
+        let optionInput = document.getElementById("option" + i);
+        if (optionInput.checked === true) {
+            userData.push(symptomsArray[i]);
+        }
+    }
+       // logging the userData outside of the loop so it doesnt repeat.
+    let newUserData = userData.toString();
     
 
-    
+if (newUserData === "Rash") {
+    optionInput.checked === false;
+    let rashElement = document.createElement("h3");
+    rashElement.innerText = "hello world";
+    containerTwo.append(rashElement);
+} else
+console.log("null");
+
 }
 
 
-
-
+// event listener added to submit button.
+submitButton.addEventListener("click", collectUserData);
+ 
+// calling the checklist function.
+    checkList();
+}
 button.addEventListener("click", displaySymptomFunction);
+
+
+
+
+
 
 

@@ -55,14 +55,43 @@ h1 {
     border-radius: 5px;
     transform: scale(2.5);
     position: relative;
-    right: 50px;
+    right: 50px;    
+}
 
 
-
-    
-
-
-
-    
-    
+/* styling the javascript elements:  */
+#submitButton {
+    position: relative;
+    top: 35vh;
+    transform: scale(3.5);
+}
+#headingThree {
+    text-align: center;
+    grid-column: 1/13;
+    font-size: 2.5rem;
+}
+#headingTwo {
+    grid-column: 1/13;
+    text-align: center;
+    font-size: 3rem;
+    margin-top: 25px;
+}
+#divContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.optionInput {
+    width: 40px;
+    position: relative;
+    bottom: 100px;
+    transform: scale(2.5);
+}
+#optionLabel {
+    position: relative;
+    bottom: 100px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: left;
+    font-size: 1.75rem;
 }
