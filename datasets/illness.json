@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1,
+        "name": "index 1",
+        
+        "symptoms": [
+            "Fever",
+            "Fatigue",
+            "Swollen lymph nodes",
+            "Rash"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "index 2",
+        "symptoms": [
+            "Fever",
+            "Diarrhea",
+            "Weight loss",
+            "Oral thrush (white patches in the mouth)"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "index 3",
+        "symptoms": [
+            "Fever",
+            "Fatigue",
+            "Painless sore (chancre)",
+            "Rash on the palms of the hands or soles of the feet"
+        ]
+    }
+]

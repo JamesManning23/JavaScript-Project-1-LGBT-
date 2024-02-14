@@ -3,46 +3,27 @@ const welcomePara = document.getElementById("paraOne");
 const button = document.getElementById("button");
 const creditPara = document.getElementById("paraTwo");
 const containerTwo = document.getElementById("containerTwo");
-const optionInput = document.getElementById
-  // creates a array for each individual symptom.
-const symptomsArray = [
-    "Fever",
-    "Fatigue",
-    "Swollen lymph nodes",
-    "Rash",
-    "Sore throat",
-    "Muscle aches and joint pain",
-    "Night sweats",
-    "Diarrhea",
-    "Weight loss",
-    "Oral thrush (white patches in the mouth)",
-    "Recurrent infections",
-    "Painless sore (chancre)",
-    "Rash on the palms of the hands or soles of the feet",
-    "Headaches",
-    "Patchy hair loss",
-    "Abdominal pain or discomfort",
-    "Loss of appetite",
-    "Nausea and vomiting",
-    "Jaundice (yellowing of the skin and eyes)",
-    "Rectal pain",
-    "Rectal discharge",
-    "Rectal bleeding",
-    "Itching or irritation in the anal area",
-    "Penile discharge (clear, white, or greenish)",
-    "Pain or burning sensation during urination",
-    "Difficulty swallowing",
-    "Redness or swelling in the throat",
-    "Painful sores or blisters on the genital or anal area",
-    "Itching or tingling sensations",
-    "Flu-like symptoms"
-]
+
+// import json symptom array
+let symptomsArray = [];
+fetch('./datasets/symptoms.json').then(function(resp) {
+    return resp.json();
+}).then(function(data) {
+    symptomsArray = data;
+});
+// import illness index array
+let illnessIndex = [];
+fetch('./datasets/illness.json').then(function(resp) {
+    return resp.json();
+}).then(function(data) {
+    illnessIndex = data;
+});
 
 // create a checklist function outside the sympton function as arrow functions cannot be hoisted.
 // However, the function will be called in the symptom function when clicked./
 const checkList = () => {
      
-// loops through each array index to create a checkbox for each option.
+    // loops through each array index to create a checkbox for each option.
     for (let i = 0; i < symptomsArray.length; i++) {
         const optionLabel = document.createElement("label");
         optionLabel.innerText = symptomsArray[i];
@@ -86,51 +67,67 @@ const displaySymptomFunction = () => {
     containerTwo.appendChild(headingThree); // Append the heading to containerTwo
     headingThree.setAttribute("id", "headingThree");
     
-// creating a submit button and appending this to the container.
-const submitButton = document.createElement("button");
-submitButton.setAttribute("type", "submit");
-submitButton.innerText = "Submit";
-containerTwo.append(submitButton);
-submitButton.setAttribute("id", "submitButton");
-// creating a function to iterate through each checkbox and store the value in the userData Variable
+    // creating a submit button and appending this to the container.
+    const submitButton = document.createElement("button");
+    submitButton.setAttribute("type", "submit");
+    submitButton.innerText = "Submit";
+    containerTwo.append(submitButton);
+    submitButton.setAttribute("id", "submitButton");
 
-
-const collectUserData = () => {
-//    clears the user data so that it generates only one value each time the 
-    userData = [];
-
-    for (let i = 0; i < symptomsArray.length; i++) {
-        let optionInput = document.getElementById("option" + i);
-        if (optionInput.checked === true) {
-            userData.push(symptomsArray[i]);
-        }
-    }
-       // logging the userData outside of the loop so it doesnt repeat.
-    let newUserData = userData.toString();
+    // event listener added to submit button.
+    submitButton.addEventListener("click", collectUserData);
     
-
-if (newUserData === "Rash") {
-    optionInput.checked === false;
-    let rashElement = document.createElement("h3");
-    rashElement.innerText = "hello world";
-    containerTwo.append(rashElement);
-} else
-console.log("null");
-
-}
-
-
-// event listener added to submit button.
-submitButton.addEventListener("click", collectUserData);
- 
-// calling the checklist function.
+    // calling the checklist function.
     checkList();
 }
 button.addEventListener("click", displaySymptomFunction);
 
 
+const collectUserData = () => {
+    // creating a function to iterate through each checkbox and store the value in the userData Variable
+    // clears the user data so that it generates only one value each time the 
+    let userSelection = [];
+
+    for (let i = 0; i < symptomsArray.length; i++) {
+        let optionInput = document.getElementById("option" + i);
+        if (optionInput.checked) {
+            userSelection.push(symptomsArray[i]);
+        }
+    }
+
+    let indexScore = [];
+
+    for (let illness of illnessIndex) {
+        var scoreObj = {
+            illness: illness,
+            score: 0
+        };
+        for (let illnessSymptom of illness.symptoms) {
+            for (let symptom of userSelection) {
+                if (illnessSymptom === symptom) {
+                    scoreObj.score += 1;
+                }
+            }
+        }
+        indexScore.push(scoreObj);
+    }
+
+    indexScore = indexScore.sort(function (a, b) { 
+        return a.score - b.score; 
+    }); 
+    indexScore.reverse();   
 
 
+    console.log(indexScore);
+
+    containerTwo.style.display = 'none';
+
+
+    // i need to iterate over the index score array and if the score is greater than 0, display to user by removing the container and generating said elements on screen.
+
+
+
+}
 
 
 
