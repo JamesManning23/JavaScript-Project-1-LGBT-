@@ -1,33 +1,98 @@
 [
     {
-        "id": 1,
-        "name": "index 1",
-        
+        "name": "HIV/AIDS",
         "symptoms": [
+            "Fever",
+            "Fatigue",
+            "Sore throat",
+            "Swollen lymph nodes",
+            "Rash",
+            "Muscle aches and joint pain",
+            "Night sweats",
+            "Weight loss",
+            "Recurrent infections"
+        ],
+        "description": "HIV is a virus that attacks the body's immune system, leading to AIDS if untreated.",
+        "link": "https://www.nhs.uk/conditions/hiv-and-aids/"
+    },
+    {
+        "name": "Gonorrhea",
+        "symptoms": [
+            "Pain or burning sensation during urination",
+            "Penile discharge (clear, white, or greenish)",
+            "Rectal pain",
+            "Rectal discharge",
+            "Rectal bleeding",
+            "Sore throat",
+            "Swollen lymph nodes",
+            "Flu-like symptoms"
+        ],
+        "description": "Gonorrhea is a sexually transmitted bacterial infection that, if untreated, may cause infertility and other complications.",
+        "link": "https://www.nhs.uk/conditions/gonorrhoea/"
+    },
+    {
+        "name": "Hepatitis C",
+        "symptoms": [
+            "Fever",
+            "Fatigue",
+            "Abdominal pain or discomfort",
+            "Loss of appetite",
+            "Nausea and vomiting",
+            "Jaundice (yellowing of the skin and eyes)"
+        ],
+        "description": "Hepatitis C is a liver infection caused by the hepatitis C virus.",
+        "link": "https://www.nhs.uk/conditions/hepatitis-c/"
+    },
+    {
+        "name": "Herpes",
+        "symptoms": [
+            "Painful sores or blisters on the genital or anal area",
+            "Itching or tingling sensations",
+            "Flu-like symptoms"
+        ],
+        "description": "Herpes is a common sexually transmitted infection caused by the herpes simplex virus (HSV).",
+        "link": "https://www.nhs.uk/conditions/genital-herpes/"
+    },
+    {
+        "name": "Chlamydia",
+        "symptoms": [
+            "Pain or burning sensation during urination",
+            "Penile discharge (clear, white, or greenish)",
+            "Rectal pain",
+            "Rectal discharge",
+            "Rectal bleeding",
+            "Abdominal pain or discomfort",
+            "Nausea and vomiting",
+            "Fever"
+        ],
+        "description": "Chlamydia is a common sexually transmitted infection caused by the bacterium Chlamydia trachomatis.",
+        "link": "https://www.nhs.uk/conditions/chlamydia/"
+    },
+    {
+        "name": "Syphilis",
+        "symptoms": [
+            "Painless sore (chancre)",
+            "Rash on the palms of the hands or soles of the feet",
+            "Headaches",
             "Fever",
             "Fatigue",
             "Swollen lymph nodes",
-            "Rash"
-        ]
+            "Muscle aches and joint pain"
+        ],
+        "description": "Syphilis is a bacterial infection usually spread by sexual contact. The disease starts as a painless sore — typically on your genitals, rectum or mouth.",
+        "link": "https://www.nhs.uk/conditions/syphilis/"
     },
     {
-        "id": 2,
-        "name": "index 2",
+        "name": "Hepatitis B",
         "symptoms": [
-            "Fever",
-            "Diarrhea",
-            "Weight loss",
-            "Oral thrush (white patches in the mouth)"
-        ]
-    },
-    {
-        "id": 3,
-        "name": "index 3",
-        "symptoms": [
-            "Fever",
+            "Abdominal pain or discomfort",
+            "Loss of appetite",
+            "Nausea and vomiting",
+            "Jaundice (yellowing of the skin and eyes)",
             "Fatigue",
-            "Painless sore (chancre)",
-            "Rash on the palms of the hands or soles of the feet"
-        ]
+            "Fever"
+        ],
+        "description": "Hepatitis B is a viral infection that attacks the liver and can cause both acute and chronic disease.",
+        "link": "https://www.nhs.uk/conditions/hepatitis-b/"
     }
 ]

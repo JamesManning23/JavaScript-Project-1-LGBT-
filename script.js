@@ -1,8 +1,8 @@
 // grabbing all the relevant elements usingthe DOM
 const welcomePara = document.getElementById("paraOne");
-const button = document.getElementById("button");
+const Startbutton = document.getElementById("button");
 const creditPara = document.getElementById("paraTwo");
-const containerTwo = document.getElementById("containerTwo");
+const symptomsPage = document.getElementById("containerTwo");
 
 // import json symptom array
 let symptomsArray = [];
@@ -21,33 +21,28 @@ fetch('./datasets/illness.json').then(function(resp) {
 
 // create a checklist function outside the sympton function as arrow functions cannot be hoisted.
 // However, the function will be called in the symptom function when clicked./
-const checkList = () => {
+const populateSymptomList = () => {
      
-    // loops through each array index to create a checkbox for each option.
+    // loops through each symptom array index to create a checkbox for each option and populate the checkboxes with the symptoms.
     for (let i = 0; i < symptomsArray.length; i++) {
-        const optionLabel = document.createElement("label");
-        optionLabel.innerText = symptomsArray[i];
-        optionLabel.setAttribute("for", "option" + i);
-        optionLabel.setAttribute("id", "optionLabel");
-       
+        let divContainer = document.createElement("div");
+        divContainer.setAttribute("class", "symptom");
+        document.getElementById("symptomList").append(divContainer);
+
         let optionInput = document.createElement("input");
         optionInput.setAttribute("type", "checkbox");
         optionInput.setAttribute("id", "option" + i);
         optionInput.setAttribute("class", "optionInput");
-        
-        // creating a div container element.
-        const divContainer = document.createElement("div");
-        // appending the div container to containerTwo
-        containerTwo.append(divContainer);
-        // appending the Option input and label to the div
-        divContainer.append(optionInput); 
+        divContainer.append(optionInput);
+
+        let optionLabel = document.createElement("label");
+        optionLabel.innerText = symptomsArray[i];
+        optionLabel.setAttribute("for", "option" + i);
+        optionLabel.setAttribute("id", "optionLabel");
         divContainer.append(optionLabel);
-        divContainer.setAttribute("id", "divContainer");
-       }
-
-
+    }
 }
-
+// this function is applied to the submit button.
 const displaySymptomFunction = () => {
     // Removing all the beginning elements
     welcomePara.remove();
@@ -57,36 +52,39 @@ const displaySymptomFunction = () => {
     // Creating a heading that tells the user to select relevant symptoms 
     const headingTwo = document.createElement("h2");
     headingTwo.innerText = "Please Select Any Symptoms You Have Below";
-    containerTwo.appendChild(headingTwo); // Append the heading to containerTwo
+    symptomsPage.appendChild(headingTwo); // Append the heading to symptoms page.
     headingTwo.setAttribute("id", "headingTwo");
    
 
     // creates another heading. 
     const headingThree = document.createElement("h3");
     headingThree.innerText = "This is a symptom checker for the 7 most prevelant STIs contracted by Gay and Bisexual Men";
-    containerTwo.appendChild(headingThree); // Append the heading to containerTwo
+    symptomsPage.appendChild(headingThree); // Append the heading to containerTwo
     headingThree.setAttribute("id", "headingThree");
+
+
+    // create a symptom list container and populate it
+    const symptomList = document.createElement("div");
+    symptomList.setAttribute("id", "symptomList");
+    symptomsPage.append(symptomList);
+    populateSymptomList();
     
     // creating a submit button and appending this to the container.
     const submitButton = document.createElement("button");
     submitButton.setAttribute("type", "submit");
     submitButton.innerText = "Submit";
-    containerTwo.append(submitButton);
+    symptomsPage.append(submitButton);
     submitButton.setAttribute("id", "submitButton");
 
     // event listener added to submit button.
     submitButton.addEventListener("click", collectUserData);
-    
-    // calling the checklist function.
-    checkList();
 }
-button.addEventListener("click", displaySymptomFunction);
+    Startbutton.addEventListener("click", displaySymptomFunction);
 
 
 const collectUserData = () => {
+    // Creating a empty user selection array and pushing whatever the user selects to that array
     let userSelection = [];
-
-    // Collecting user-selected symptoms
     for (let i = 0; i < symptomsArray.length; i++) {
         let optionInput = document.getElementById("option" + i);
         if (optionInput.checked) {
@@ -94,9 +92,8 @@ const collectUserData = () => {
         }
     }
 
-    let indexScore = [];
-
-    // Calculating score for each illness
+    // Creating a empty indexscore array, looping over the illnesses and if the symptoms selected match with the illness, increment the score by 1.
+    let indexScore = [];   
     for (let illness of illnessIndex) {
         let scoreObj = {
             illness: illness,
@@ -112,142 +109,56 @@ const collectUserData = () => {
         indexScore.push(scoreObj);
     }
 
-    // Sorting the indexScore based on the score
+    // Ranking the index score from highest to lowest.
     indexScore = indexScore.sort(function (a, b) { 
         return a.score - b.score; 
     }).reverse();
-
+    // removing the checkboxes
+    symptomsPage.style.display = "none";
  
-    const newContainer = document.createElement("div");
-    newContainer.setAttribute("id", "newContainer");
-    document.body.append(newContainer);
+    const resultsPage = document.createElement("div");
+    resultsPage.setAttribute("id", "newContainer");
+    document.body.append(resultsPage);
 
     const openingParagraph = document.createElement("h2");
     openingParagraph.setAttribute("id", "openingParagraph");
     openingParagraph.innerText = "Based on the Symptoms you have selected, we have matched the most likely STIS as...";
-    newContainer.appendChild(openingParagraph);
-
-    // Calculating the total number of symptoms checked
-    const totalCheckedSymptoms = userSelection.length;
-
-   
-   
-
-
+    resultsPage.appendChild(openingParagraph);
+// looping over the index score and if the score is 0 , carry on 
     for (let index of indexScore) {
-        containerTwo.style.display = "none";
-        if (index.score > 0) {
-            const illnessName = document.createElement("h3");
-            illnessName.setAttribute("id", "illnessName");
-            illnessName.innerText = index.illness.name;
-
-            const illnessDescription = document.createElement("p");
-            illnessDescription.setAttribute("id", "illnessDescription");
-            illnessDescription.innerText = index.illness.description;
-            
-
-            let symptomLength = index.illness.symptoms.length;  
-
-            const illnessScore = document.createElement("p");
-            illnessScore.setAttribute("id", "illnessScore");
-            illnessScore.innerText = `Out of ${symptomLength} symptoms associatated with this illness, ${index.score} of your selected symptoms match with this illness.`;
-
-            newContainer.appendChild(illnessName);
-            newContainer.appendChild(illnessDescription);
-            newContainer.appendChild(illnessScore);
-
-            if (illnessName.innerText === "HIV/AIDS") {
-                const hivParagraph = document.createElement("p")
-                hivParagraph.setAttribute("id", "hivParagraph");
-                hivParagraph.innerText = "Please Check Out The Following Rescource Below";
-                newContainer.appendChild(hivParagraph);
-
-                const hivLink = document.createElement("a");
-                hivLink.href = "https://www.nhs.uk/conditions/hiv-and-aids/";
-                hivLink.setAttribute("id", "hivLink")
-                hivLink.setAttribute("target", "blank");
-                newContainer.appendChild(hivLink);
-                hivLink.textContent = "Learn More About HIV And Aids";
-            } else if (illnessName.innerText === "Gonorrhea") {
-                let gonorrheaParagraph = document.createElement("p");
-                gonorrheaParagraph.setAttribute("id", "gonorrheaParagraph");
-                gonorrheaParagraph.innerText = "Please Check Out The Following Rescource Below";
-                newContainer.appendChild(gonorrheaParagraph);
-
-                const gonorrheaLink = document.createElement("a");
-                gonorrheaLink.href = "https://www.nhs.uk/conditions/gonorrhoea/";
-                gonorrheaLink.textContent = "Learn More About Gonorrhea";
-                newContainer.appendChild(gonorrheaLink);
-                gonorrheaLink.setAttribute("id", "gonorrheaLink");
-                gonorrheaLink.setAttribute("target", "blank");
-            } else if (illnessName.innerText === "Hepatitis C") {
-                const hepcParagraph = document.createElement("p");
-                hepcParagraph.setAttribute("id", "hepcParagraph");
-                hepcParagraph.innerText = "Please Check Out The Following Rescource Below";
-                newContainer.appendChild(hepcParagraph);
-
-                const hepcLink = document.createElement("a");
-                hepcLink.setAttribute("id", "hepcLink");
-                hepcLink.href = "https://www.nhs.uk/conditions/hepatitis-c/";
-                hepcLink.textContent = "Learn More About Hepatitis C";
-                hepcLink.setAttribute("target", "blank");
-                newContainer.appendChild(hepcLink);
-            } else if (illnessName.innerText === "Hepatitis B") {
-               const hepbParagraph = document.createElement("p");
-               hepbParagraph.setAttribute("id", "hepbParagraph");
-               hepbParagraph.innerText = "Please Check Out The Following Rescource Below";
-               newContainer.appendChild(hepbParagraph);
-
-               const hepbLink = document.createElement("a");
-               hepbLink.setAttribute("id", "hepbLink");
-               hepbLink.href = "https://www.nhs.uk/conditions/hepatitis-b/";
-               hepbLink.textContent = "Learn More About Hepatits B";
-               hepbLink.setAttribute("target", "blank");
-               newContainer.appendChild(hepbLink);
-            } else if (illnessName.innerText === "Herpes") {
-                const herpesParagraph = document.createElement("p");
-                herpesParagraph.setAttribute("id", "herpesParagraph");
-                herpesParagraph.innerText = "Please Check Out The Following Rescource Below";
-                newContainer.appendChild(herpesParagraph);
-
-                const herpesLink = document.createElement("a");
-                herpesLink.setAttribute("id", "herpesLink");
-                herpesLink.href = "https://www.nhs.uk/conditions/genital-herpes/";
-                herpesLink.textContent = "Learn More About Herpes";
-                herpesLink.setAttribute("target", "blank");
-                newContainer.appendChild(herpesLink);
-            } else if (illnessName.innerText === "Chlamydia") {
-                const chlamydiaPara = document.createElement("p");
-                chlamydiaPara.setAttribute("id", "chlamydiaPara");
-                chlamydiaPara.innerText = "Please Check Out The Following Rescource Below";
-                newContainer.appendChild(chlamydiaPara);
-
-                const chlamydiaLink = document.createElement("a");
-                chlamydiaLink.setAttribute("id", "chlamydiaLink");
-                chlamydiaLink.href = "https://www.nhs.uk/conditions/chlamydia/";
-                chlamydiaLink.textContent = "Learn More About Chlamydia";
-                chlamydiaLink.setAttribute("target", "blank");
-                newContainer.appendChild(chlamydiaLink);
-            } else if (illnessName.innerText === "Syphilis") {
-                const syphilisPara = document.createElement("p");
-                syphilisPara.setAttribute("id", "syphilisPara");
-                syphilisPara.innerText = "Please Check Out The Following Rescource Below";
-                newContainer.appendChild(syphilisPara);
-
-                const syphilisLink = document.createElement("a");
-                syphilisLink.setAttribute("id", "syphilisLink");
-                syphilisLink.href = "https://www.nhs.uk/conditions/syphilis/";
-                syphilisLink.textContent = "Learn More Abbout Syphilis";
-                syphilisLink.setAttribute("target", "blank");
-                newContainer.appendChild(syphilisLink);
-            }
-
-            
+        if (index.score == 0) {
+            // Skip to next item.
+            continue;
         }
+        // creating a name and description variable and populating them with the data in the illness data set.
+        let illnessName = document.createElement("h3");
+        illnessName.setAttribute("class", "illnessName");
+        illnessName.innerText = index.illness.name;
+        resultsPage.appendChild(illnessName);
+
+        let illnessDescription = document.createElement("p");
+        illnessDescription.setAttribute("class", "illnessDescription");
+        illnessDescription.innerText = index.illness.description;
+        resultsPage.appendChild(illnessDescription);
         
+        let symptomLength = index.illness.symptoms.length;  
+        let illnessScore = document.createElement("p");
+        illnessScore.setAttribute("class", "illnessScore");
+        illnessScore.innerText = `Out of ${symptomLength} symptoms associatated with this illness, ${index.score} of your selected symptoms match with this illness.`;
+        resultsPage.appendChild(illnessScore);
+
+        let info = document.createElement("p");
+        info.setAttribute("class", "resourceParagraph");
+        info.innerText = "Please Check Out The Following Resource Below";
+        resultsPage.appendChild(info);
+
+        let link = document.createElement("a");
+        link.href = index.illness.link;
+        link.setAttribute("target", "blank");
+        link.setAttribute("class", "resourceLink");
+        link.textContent = "Learn More About " + index.illness.name;
+        resultsPage.appendChild(link);
     }
-    
-  
 }
 
 

@@ -13,96 +13,77 @@ h1 {
     padding: 40px;
     font-size: 3rem;
     width: 100vw;
+    color: white;
     
 }
 .containerTwo {
-    border-radius: 5px;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    grid-column: 1/13;
-    grid-row: 2/12;
-    background-color: white;
-    height: 100vh;
-    
+    text-align: center;
 }
 
 
 #paraOne {
     font-size: 3rem;
     color: black;
-    grid-column: 1/13;
     text-align: center;
     background-color: white;
     padding-top: 50px;
     position: relative;
-
-    
-    
 }
 #paraTwo {
     font-size: 2rem;
     text-align: center;
-    grid-row: 6/7;
-    grid-column: 1/13;
     background-color: white;    
     
 }
 
 .containerTwo button {
     font-size: 1rem;
-    grid-row: 4/5;
-    grid-column: 7/8;
     width: 100px;
     height: 50px;
     transform: scale(3.5);
-    position: relative;
-    right: 50px;
-    bottom: 7vh; 
+    margin-top: 120px;
 }
 
 
 
 /* styling the javascript elements:  */
 #submitButton {
-    position: relative;
     transform: scale(3.5);
-    top: 25vh;
-    right: 50px;
-    
 }
 #headingThree {
     text-align: center;
-    grid-column: 1/13;
     font-size: 2.5rem;
-    position: relative;
-    bottom: 50px;
 }
 #headingTwo {
-    grid-column: 1/13;
     text-align: center;
     font-size: 3rem;
-    margin-top: 25px;
 }
-#divContainer {
+
+#symptomList {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    position: relative;
-    bottom: 200px;
-    
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+
+}
+.symptom {
+    padding: 30px;
+    border: 1px solid grey;
+    text-align: center;
+    margin: 5px;
+    max-width: 400px;
+    flex-basis: 400px;
+    flex-grow: 1;
+    text-align: left;
 }
 .optionInput {
-    width: 20px;
-    margin-right: 10px;
+    margin-right: 20px;
     transform: scale(2);
-    position: relative;
-    left: 10px;
 }
 #optionLabel {
-   margin-right: 10px;
-   position: relative;
-   left: 10px;
+   display: inline-block;
+   width: calc(100% - 35px);
+   vertical-align: middle;
 }
 
 
@@ -115,85 +96,26 @@ h1 {
 }
 
 #openingParagraph {
-font-size: 3rem;
-text-align: center;
-padding: 20px;
-
+    font-size: 3rem;
+    text-align: center;
+    padding: 20px;
 }
-#illnessName {
-font-size: 2rem;
+.illnessName {
+    font-size: 2rem;
+    margin-top: 45px;
 }
-#ilnessName:hover {
+.ilnessName:hover {
     content: url();
 }
-#illnessDescription {
-font-size: 2rem;
-
+.illnessDescription {
+    font-size: 2rem;
 }
-#illnessScore {
-font-size: 2rem;
-
+.illnessScore {
+    font-size: 2rem;
 }
-#hivParagraph {
-font-size: 2rem;
-
+.resourceParagraph {
+    font-size: 2rem;
 }
-#hivLink {
-font-size: 2rem;
-
-}
-#gonorrheaParagraph {
-font-size: 2rem;
-
-}
-#gonorrheaLink {
-font-size: 2rem;
-
-}
-#hepcParagraph {
-font-size: 2rem;
-
-}
-#hepcLink {
-font-size: 2rem;
-
-}
-#hepbParagraph {
-font-size: 2rem;
-
-}
-#hepbLink {
-font-size: 2rem;
-
-}
-#herpesParagraph {
-font-size: 2rem;
-
-}
-#herpesLink {
-font-size: 2rem;
-
-}
-#chlamydiaPara {
-font-size: 2rem;
-
-}
-#chlamydiaLink {
-font-size: 2rem;
-
-}
-#syphilisPara {
-font-size: 2rem;
-
-}
-#syphilisLink {
-font-size: 2rem;
-
-}
-/* after lunch, implement a responsive site with media queries */
-@media (max-width: 1332px) {
-h1 {
-    width: 100%;
-}
-
+.resourceLink {
+    font-size: 2rem;
 }
